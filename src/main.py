@@ -6,7 +6,8 @@ from .collectors.ics import fetch_ics
 from .collectors.jsonld import fetch_jsonld_events
 from .collectors.helfi_lukio import fetch_all_helfi_lukio
 from .collectors.stadinao import fetch_stadinao_events
-from .collectors.vantaa import fetch_vantaa_events
+from .collectors.vantaa_lukio import fetch_vantaa_lukio
+
 
 
 def load_sources(path: str):
