@@ -62,7 +62,7 @@ def run(sources_path: str, out_dir: str):
     except Exception as e:
         print(f"[WARN] Stadin AO fetch failed: {e}")
         
-    # VANTAAN LUKIOT JA VARIA
+   # VANTAAN LUKIOT JA VARIA
     try:
         events.extend(fetch_vantaa_events())
     except Exception as e:
