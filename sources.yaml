@@ -1,0 +1,6 @@
+ics:
+  - name: IETF public calendar (example)
+    url: https://www.ietf.org/calendar/ietf.ics
+html:
+  - name: Example site with JSON-LD (replace me)
+    url: https://example.org/events
