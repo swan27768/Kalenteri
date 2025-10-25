@@ -13,13 +13,54 @@ LUKIOT = [
         "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/alppilan-lukio/tutustu-ja-hae",
         "location": "Alppilan lukio, Viipurinkatu 21, Helsinki"
     },
-    # Lisää muita lukioita tähän samaan muotoon:
-    # {
-    #   "name": "Esimerkin lukio",
-    #   "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/esimerkin-lukio/tutustu-ja-hae",
-    #   "location": "Esimerkin lukio, Osoite X, Helsinki"
-    # },
+    {
+        "name": "Kallion lukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/kallion-lukio/tutustu-ja-hae",
+        "location": "Kallion lukio, Helsinki"
+    },
+    {
+        "name": "Ressun lukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/ressun-lukio/tutustu-ja-hae",
+        "location": "Ressun lukio, Helsinki"
+    },
+    {
+        "name": "Mäkelänrinteen lukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/makelanrinteen-lukio/tutustu-ja-hae",
+        "location": "Mäkelänrinteen lukio, Helsinki"
+    },
+    {
+        "name": "Etu-Töölön lukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/etu-toolon-lukio/tutustu-ja-hae",
+        "location": "Etu-Töölön lukio, Helsinki"
+    },
+    {
+        "name": "Helsingin luonnontiedelukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-luonnontiedelukio/tutustu-ja-hae",
+        "location": "Helsingin luonnontiedelukio, Helsinki"
+    },
+    {
+        "name": "Helsingin medialukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-medialukio/tutustu-ja-hae",
+        "location": "Helsingin medialukio, Helsinki"
+    },
+    {
+        "name": "Hiidenkiven lukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/hiidenkiven-lukio/tutustu-ja-hae",
+        "location": "Hiidenkiven lukio, Helsinki"
+    },
+    {
+        "name": "SYK",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/syk/tutustu-ja-hae",
+        "location": "Suomalais-venäläinen koulu / SYK, Helsinki"
+    },
+    {
+        "name": "Helsingin kielilukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-kielilukio/tutustu-ja-hae",
+        "location": "Helsingin kielilukio, Helsinki"
+    },
+    # Lisää tähän loput lukioista samalla kaavalla
 ]
+
 
 # regex:
 #   ke 14.1.2026 klo 10.30–12.00
