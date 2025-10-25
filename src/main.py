@@ -63,11 +63,11 @@ def run(sources_path: str, out_dir: str):
     except Exception as e:
         print(f"[WARN] Stadin AO fetch failed: {e}")
         
-   # VANTAAN LUKIOT JA VARIA
+    # Vantaan lukiot & Varia
     try:
-        events.extend(fetch_vantaa_events())
+        events.extend(fetch_vantaa_lukio())
     except Exception as e:
-        print(f"[WARN] Vantaa fetch failed: {e}")
+        print(f"[WARN] Vantaa lukio fetch failed: {e}")
         
     # Suodata + normalisoi ajat
     now = datetime.now(timezone.utc)
