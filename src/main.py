@@ -69,6 +69,13 @@ def run(sources_path: str, out_dir: str):
         events.extend(fetch_vantaa_lukio())
     except Exception as e:
         print(f"[WARN] Vantaa lukio fetch failed: {e}")
+
+        # Vantaa manuaalinen fallback (jos verkkohaku ei onnistu)
+    try:
+        events.extend(fetch_vantaa_manual())
+    except Exception as e:
+        print(f"[WARN] Vantaa manual fetch failed: {e}")
+
         
     # Suodata + normalisoi ajat
     now = datetime.now(timezone.utc)
