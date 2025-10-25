@@ -71,11 +71,12 @@ def run(sources_path: str, out_dir: str):
     except Exception as e:
         print(f"[WARN] Vantaa lukio fetch failed: {e}")
 
-        # Vantaa manuaalinen fallback (jos verkkohaku ei onnistu)
+           # VANTAA (manuaalidata, esim. Lumon lukio, Varia, jne)
     try:
         events.extend(fetch_vantaa_manual())
     except Exception as e:
         print(f"[WARN] Vantaa manual fetch failed: {e}")
+
 
         
     # Suodata + normalisoi ajat
