@@ -2,501 +2,109 @@
 <html lang="fi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Avoimet ovet – Helsingin lukiot & Stadin AO</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avoimet ovet – pääkaupunkiseudun oppilaitokset</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --panel: #1e253a;
-      --panel-border: rgba(255,255,255,0.07);
-      --text-main: #ffffff;
-      --text-dim: rgba(255,255,255,0.6);
-      --accent: #38bdf8;
-      --radius-lg: 20px;
-      --radius-sm: 10px;
-      --gap-lg: 2rem;
-      --gap-md: 1rem;
-      --gap-sm: 0.5rem;
-      --max-width: 1100px;
-      --font-stack: system-ui, -apple-system, BlinkMacSystemFont, "Inter", "Roboto", "Helvetica Neue", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
     body {
+      font-family: system-ui, sans-serif;
+      background: #fafafa;
+      color: #222;
       margin: 0;
-      background: radial-gradient(circle at 20% 20%, #1e293b 0%, #0f172a 60%);
-      color: var(--text-main);
-      font-family: var(--font-stack);
-      line-height: 1.45;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      padding: 1rem 2rem;
     }
-
-    header {
-      padding: var(--gap-lg) var(--gap-md) var(--gap-md);
-    }
-
-    .header-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: grid;
-      gap: var(--gap-md);
-    }
-
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-      font-size: .75rem;
-    }
-
-    .badge {
-      background: rgba(56,189,248,0.15);
-      color: var(--accent);
-      border: 1px solid rgba(56,189,248,0.4);
-      padding: .4rem .6rem;
-      border-radius: var(--radius-sm);
-      font-weight: 500;
-      line-height: 1.2;
-      white-space: nowrap;
-    }
-
     h1 {
-      margin: 0;
-      font-size: clamp(1.5rem, 1vw + 1rem, 2rem);
-      font-weight: 600;
-      color: var(--text-main);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: .5rem;
-    }
-
-    h1 span.accent {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .subtitle {
-      font-size: 0.95rem;
-      color: var(--text-dim);
-      max-width: 60ch;
-    }
-
-    .meta-row {
-      font-size: .8rem;
-      color: var(--text-dim);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    main {
-      flex: 1;
-      padding: var(--gap-md);
-      padding-bottom: 6rem;
-    }
-
-    .main-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      display: grid;
-      gap: var(--gap-md);
-    }
-
-    /* Hakupalkki ja suodattimet */
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--gap-md);
-      align-items: flex-start;
-    }
-
-    .search-box {
-      flex: 1 1 250px;
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius-lg);
-      padding: .75rem 1rem;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .search-box label {
-      font-size: .7rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      margin-bottom: .4rem;
-    }
-
-    .search-box input {
-      background: transparent;
-      border: 0;
-      outline: 0;
-      padding: 0;
-      font-size: .9rem;
-      color: var(--text-main);
-      width: 100%;
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
-    }
-
-    .filter-pill {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius-lg);
-      font-size: .8rem;
-      line-height: 1.2;
-      padding: .6rem .8rem;
-      color: var(--text-main);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .filter-pill.active {
-      background: rgba(56,189,248,0.15);
-      border-color: rgba(56,189,248,0.4);
-      color: var(--accent);
-    }
-
-    /* Lista tapahtumista */
-    .events-wrapper {
-      display: grid;
-      gap: var(--gap-md);
-    }
-
-    .event-card {
-      background: var(--panel);
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius-lg);
-      padding: var(--gap-md);
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: var(--gap-md);
-    }
-
-    .event-datebox {
-      min-width: 4.5rem;
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--panel-border);
       text-align: center;
-      padding: .6rem .5rem;
-      line-height: 1.2;
+      margin-bottom: 1rem;
     }
-
-    .event-date-day {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--text-main);
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.3rem;
     }
-
-    .event-date-month {
-      font-size: .7rem;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      color: var(--text-dim);
+    .event {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-
-    .event-time {
-      font-size: .75rem;
-      font-weight: 500;
-      color: var(--accent);
-      margin-top: .4rem;
+    .event h3 {
+      margin: 0 0 0.3rem 0;
+      font-size: 1.1rem;
     }
-
-    .event-body {
-      display: grid;
-      gap: .5rem;
-      min-width: 0;
+    .event time {
+      color: #555;
     }
-
-    .event-title-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: .5rem;
-      line-height: 1.3;
-    }
-
-    .event-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
-      word-break: break-word;
-    }
-
-    .event-org {
-      font-size: .75rem;
-      font-weight: 500;
-      color: var(--text-dim);
-    }
-
-    .event-location {
-      font-size: .8rem;
-      color: var(--text-main);
-    }
-
-    .event-link {
-      font-size: .75rem;
-      color: var(--accent);
-      text-decoration: none;
-      word-break: break-all;
-    }
-
-    .event-link:hover {
-      text-decoration: underline;
-    }
-
-    .empty-state {
-      text-align: center;
-      color: var(--text-dim);
-      font-size: .9rem;
-      padding: 4rem 1rem;
-    }
-
     footer {
-      background: rgba(15,23,42,0.8);
-      border-top: 1px solid var(--panel-border);
-      padding: var(--gap-md);
-      font-size: .7rem;
-      color: var(--text-dim);
+      margin-top: 3rem;
       text-align: center;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
+      font-size: 0.9rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
-<header>
-  <div class="header-inner">
-    <div class="badge-row">
-      <div class="badge">Helsingin lukiot</div>
-      <div class="badge">Stadin AO</div>
-      <div class="badge">OPO-kalenteri</div>
-    </div>
+  <h1>📅 Avoimet ovet – pääkaupunkiseudun oppilaitokset</h1>
+  <div id="events"></div>
+  <footer>
+    Data päivittyy automaattisesti (<a href="events.json">JSON</a> / <a href="opendoors.ics">ICS</a>)
+  </footer>
 
-    <h1>
-      Avoimet ovet & tutustumispäivät
-      <span class="accent">Helsingissä</span>
-    </h1>
+  <script>
+    async function loadEvents() {
+      const res = await fetch('events.json');
+      const events = await res.json();
 
-    <div class="subtitle">
-      Tämä sivu kokoaa lukioiden ja Stadin ammattiopiston avoimet ovet ja infotilaisuudet yhteen paikkaan.
-      Päivittyy automaattisesti GitHub Actions -ajosta.
-    </div>
+      // Ryhmittele tapahtumat sijainnin perusteella
+      const groups = {
+        "Helsinki": [],
+        "Vantaa": [],
+        "Espoo": [],
+        "Kerava": [],
+        "Muut": []
+      };
 
-    <div class="meta-row">
-      <div id="event-count">Ladataan tapahtumia…</div>
-      <div>Voit tilata kalenterin: <a href="opendoors.ics" style="color:var(--accent);text-decoration:none;">opendoors.ics</a></div>
-    </div>
-  </div>
-</header>
+      for (const ev of events) {
+        const loc = ev.location?.toLowerCase() || "";
+        if (loc.includes("helsinki")) groups["Helsinki"].push(ev);
+        else if (loc.includes("vantaa")) groups["Vantaa"].push(ev);
+        else if (loc.includes("espoo")) groups["Espoo"].push(ev);
+        else if (loc.includes("kerava")) groups["Kerava"].push(ev);
+        else groups["Muut"].push(ev);
+      }
 
-<main>
-  <div class="main-inner">
+      const container = document.getElementById('events');
+      for (const [city, evts] of Object.entries(groups)) {
+        if (evts.length === 0) continue;
 
-    <section class="controls">
-      <div class="search-box">
-        <label for="search">Haku</label>
-        <input id="search" type="text" placeholder="Etsi esim. 'Alppilan lukio' tai 'huoltajille'…" />
-      </div>
+        const section = document.createElement('section');
+        const heading = document.createElement('h2');
+        heading.textContent = city + "n oppilaitokset";
+        section.appendChild(heading);
 
-      <div class="filters">
-        <div class="filter-pill active" data-filter="all">Kaikki</div>
-        <div class="filter-pill" data-filter="lukio">Lukiot</div>
-        <div class="filter-pill" data-filter="stadinao">Stadin AO</div>
-      </div>
-    </section>
+        evts.forEach(e => {
+          const div = document.createElement('div');
+          div.className = 'event';
+          const start = new Date(e.start);
+          const end = new Date(e.end);
+          const dateStr = start.toLocaleDateString('fi-FI', { weekday:'short', day:'numeric', month:'numeric' });
+          const timeStr = start.toLocaleTimeString('fi-FI', {hour:'2-digit',minute:'2-digit'}) +
+                          " – " +
+                          end.toLocaleTimeString('fi-FI', {hour:'2-digit',minute:'2-digit'});
+          div.innerHTML = `
+            <h3>${e.title}</h3>
+            <time>${dateStr} klo ${timeStr}</time><br/>
+            <small>${e.location || ''}</small><br/>
+            <a href="${e.url}" target="_blank">Avaa lähde</a>
+          `;
+          section.appendChild(div);
+        });
 
-    <section class="events-wrapper" id="events-wrapper">
-      <div class="empty-state">Ei tapahtumia…</div>
-    </section>
-  </div>
-</main>
-
-<footer>
-  Tämä on koonti eri lähteistä (lukioiden sivut, Stadin AO, ja mahdolliset julkiset kalenterit).
-  <br />
-  Julkinen koneellisesti luettava data: <a href="events.json">events.json</a> • <a href="opendoors.ics">opendoors.ics</a>
-</footer>
-
-<script>
-(async function () {
-  // Helperit
-
-  function pad2(n) {
-    return n < 10 ? "0" + n : "" + n;
-  }
-
-  function formatTimeRange(startISO, endISO) {
-    if (!startISO) return "";
-    const start = new Date(startISO);
-    const end = endISO ? new Date(endISO) : null;
-
-    const sh = pad2(start.getHours());
-    const sm = pad2(start.getMinutes());
-    let txt = sh + ":" + sm;
-    if (end) {
-      const eh = pad2(end.getHours());
-      const em = pad2(end.getMinutes());
-      txt += "–" + eh + ":" + em;
-    }
-    return txt;
-  }
-
-  function formatDateObj(startISO) {
-    const d = new Date(startISO);
-    const day = d.getDate();
-    const month = d.toLocaleString("fi-FI", { month: "short" })
-      .replace(".", ""); // "tammi." -> "tammi"
-    return { day, month };
-  }
-
-  function detectTag(ev) {
-    // Luodaan kevyt tagi filtteröintiä varten:
-    // jos organizer sisältää "Stadin", laitetaan stadinao, muuten lukio
-    if ((ev.organizer || "").toLowerCase().includes("stadin")) {
-      return "stadinao";
-    }
-    return "lukio";
-  }
-
-  // Hae data
-  let events = [];
-  try {
-    const res = await fetch("events.json", { cache: "no-store" });
-    events = await res.json();
-  } catch (e) {
-    console.error("events.json fetch fail:", e);
-    events = [];
-  }
-
-  // Järjestä aikajärjestykseen
-  events.sort((a,b) => new Date(a.start) - new Date(b.start));
-
-  // Pidä kopio suodatusta varten
-  let filteredEvents = [...events];
-  const wrapper = document.getElementById("events-wrapper");
-  const countEl = document.getElementById("event-count");
-  const searchInput = document.getElementById("search");
-  const filterPills = Array.from(document.querySelectorAll(".filter-pill"));
-
-  function renderList(list) {
-    wrapper.innerHTML = "";
-
-    if (!list.length) {
-      wrapper.innerHTML = '<div class="empty-state">Ei osumia valituilla ehdoilla…</div>';
-      countEl.textContent = "0 tapahtumaa";
-      return;
+        container.appendChild(section);
+      }
     }
 
-    countEl.textContent = list.length + " tapahtumaa";
-
-    list.forEach(ev => {
-      const { day, month } = formatDateObj(ev.start);
-      const timeRange = formatTimeRange(ev.start, ev.end);
-
-      const tag = detectTag(ev); // "lukio" / "stadinao"
-
-      const card = document.createElement("article");
-      card.className = "event-card";
-      card.setAttribute("data-tag", tag);
-
-      card.innerHTML = `
-        <div class="event-datebox">
-          <div class="event-date-day">${day}</div>
-          <div class="event-date-month">${month}</div>
-          <div class="event-time">${timeRange ? timeRange : ""}</div>
-        </div>
-        <div class="event-body">
-          <div class="event-title-row">
-            <div class="event-title">${escapeHtml(ev.title || "Avoimet ovet")}</div>
-            <div class="event-org">${escapeHtml(ev.organizer || "")}</div>
-          </div>
-          <div class="event-location">
-            ${escapeHtml(ev.location || "")}
-          </div>
-          ${ev.url ? `<a class="event-link" href="${escapeAttr(ev.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ev.url)}</a>` : ""}
-        </div>
-      `;
-      wrapper.appendChild(card);
-    });
-  }
-
-  function applyFilters() {
-    const q = searchInput.value.trim().toLowerCase();
-    const activeFilter = filterPills.find(p => p.classList.contains("active"))?.dataset.filter || "all";
-
-    let out = events.slice();
-
-    if (activeFilter !== "all") {
-      out = out.filter(ev => detectTag(ev) === activeFilter);
-    }
-
-    if (q) {
-      out = out.filter(ev => {
-        const hay =
-          (ev.title || "") + " " +
-          (ev.organizer || "") + " " +
-          (ev.location || "") + " " +
-          (ev.url || "");
-        return hay.toLowerCase().includes(q);
-      });
-    }
-
-    filteredEvents = out;
-    renderList(filteredEvents);
-  }
-
-  // XSS-suojaukseen pienet helperit
-  function escapeHtml(str) {
-    return (str || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  }
-  function escapeAttr(str) {
-    return (str || "")
-      .replace(/"/g, "&quot;");
-  }
-
-  // Bind search
-  searchInput.addEventListener("input", () => {
-    applyFilters();
-  });
-
-  // Bind filter pills
-  filterPills.forEach(pill => {
-    pill.addEventListener("click", () => {
-      filterPills.forEach(x => x.classList.remove("active"));
-      pill.classList.add("active");
-      applyFilters();
-    });
-  });
-
-  // Alustarenderöinti
-  renderList(filteredEvents);
-  applyFilters();
-})();
-</script>
+    loadEvents();
+  </script>
 </body>
 </html>
