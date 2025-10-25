@@ -1,110 +1,129 @@
 <!DOCTYPE html>
 <html lang="fi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Avoimet ovet – pääkaupunkiseudun oppilaitokset</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      background: #fafafa;
-      color: #222;
-      margin: 0;
-      padding: 1rem 2rem;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-    h2 {
-      margin-top: 2rem;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 0.3rem;
-    }
-    .event {
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      margin: 0.5rem 0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .event h3 {
-      margin: 0 0 0.3rem 0;
-      font-size: 1.1rem;
-    }
-    .event time {
-      color: #555;
-    }
-    footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
-</head>
-<body>
-  <h1>📅 Avoimet ovet – pääkaupunkiseudun oppilaitokset</h1>
-  <div id="events"></div>
-  <footer>
-    Data päivittyy automaattisesti (<a href="events.json">JSON</a> / <a href="opendoors.ics">ICS</a>)
-  </footer>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avoimet ovet – OpenDoors Bot</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: #f8fafc;
+        color: #111827;
+        margin: 0;
+        padding: 2rem;
+        line-height: 1.5;
+      }
+      h1 {
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .event-list {
+        max-width: 800px;
+        margin: 0 auto;
+        display: grid;
+        gap: 1rem;
+      }
+      .event {
+        background: white;
+        border-radius: 1rem;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .event:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+      }
+      .event-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+      .event-date {
+        color: #374151;
+        font-size: 0.95rem;
+      }
+      .event-location {
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+      footer {
+        margin-top: 2.5rem;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+      a {
+        color: #2563eb;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>📅 Avoimet ovet – OpenDoors Bot</h1>
+    <div class="event-list" id="eventList">Ladataan tapahtumia...</div>
+    <footer>
+      Data päivittyy automaattisesti (
+      <a href="events.json">JSON</a> /
+      <a href="opendoors.ics">ICS</a> )
+    </footer>
 
-  <script>
-    async function loadEvents() {
-      const res = await fetch('events.json');
-      const events = await res.json();
+    <script>
+      async function loadEvents() {
+        try {
+          const res = await fetch("events.json");
+          const events = await res.json();
 
-      // Ryhmittele tapahtumat sijainnin perusteella
-      const groups = {
-        "Helsinki": [],
-        "Vantaa": [],
-        "Espoo": [],
-        "Kerava": [],
-        "Muut": []
-      };
+          if (!events.length) {
+            document.getElementById("eventList").innerHTML =
+              "<p>Ei tapahtumia juuri nyt.</p>";
+            return;
+          }
 
-      for (const ev of events) {
-        const loc = ev.location?.toLowerCase() || "";
-        if (loc.includes("helsinki")) groups["Helsinki"].push(ev);
-        else if (loc.includes("vantaa")) groups["Vantaa"].push(ev);
-        else if (loc.includes("espoo")) groups["Espoo"].push(ev);
-        else if (loc.includes("kerava")) groups["Kerava"].push(ev);
-        else groups["Muut"].push(ev);
+          const container = document.getElementById("eventList");
+          container.innerHTML = "";
+
+          for (const e of events) {
+            const div = document.createElement("div");
+            div.className = "event";
+            const start = new Date(e.start);
+            const end = new Date(e.end);
+            const dateStr = start.toLocaleDateString("fi-FI", {
+              weekday: "short",
+              day: "numeric",
+              month: "numeric",
+            });
+            const timeStr =
+              start.toLocaleTimeString("fi-FI", {
+                hour: "2-digit",
+                minute: "2-digit",
+              }) +
+              " – " +
+              end.toLocaleTimeString("fi-FI", {
+                hour: "2-digit",
+                minute: "2-digit",
+              });
+
+            div.innerHTML = `
+              <div class="event-title">${e.title}</div>
+              <div class="event-date">${dateStr} klo ${timeStr}</div>
+              <div class="event-location">${e.location || ""}</div>
+              <a href="${e.url}" target="_blank">Avaa lähdesivu</a>
+            `;
+            container.appendChild(div);
+          }
+        } catch (err) {
+          console.error("Virhe ladattaessa tapahtumia:", err);
+          document.getElementById("eventList").innerHTML =
+            "<p>Virhe tapahtumien latauksessa.</p>";
+        }
       }
 
-      const container = document.getElementById('events');
-      for (const [city, evts] of Object.entries(groups)) {
-        if (evts.length === 0) continue;
-
-        const section = document.createElement('section');
-        const heading = document.createElement('h2');
-        heading.textContent = city + "n oppilaitokset";
-        section.appendChild(heading);
-
-        evts.forEach(e => {
-          const div = document.createElement('div');
-          div.className = 'event';
-          const start = new Date(e.start);
-          const end = new Date(e.end);
-          const dateStr = start.toLocaleDateString('fi-FI', { weekday:'short', day:'numeric', month:'numeric' });
-          const timeStr = start.toLocaleTimeString('fi-FI', {hour:'2-digit',minute:'2-digit'}) +
-                          " – " +
-                          end.toLocaleTimeString('fi-FI', {hour:'2-digit',minute:'2-digit'});
-          div.innerHTML = `
-            <h3>${e.title}</h3>
-            <time>${dateStr} klo ${timeStr}</time><br/>
-            <small>${e.location || ''}</small><br/>
-            <a href="${e.url}" target="_blank">Avaa lähde</a>
-          `;
-          section.appendChild(div);
-        });
-
-        container.appendChild(section);
-      }
-    }
-
-    loadEvents();
-  </script>
-</body>
+      loadEvents();
+    </script>
+  </body>
 </html>
