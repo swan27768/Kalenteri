@@ -1,54 +1,52 @@
-
 name: Publish events to GitHub Pages
 
 on:
-  schedule:
-    - cron: '0 5 * * *'  # 07:00 Europe/Helsinki = 05:00 UTC (no DST handling here)
   workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *" # ajaa joka päivä klo 06:00 Helsinki-aikaa (noin)
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # to commit generated files (if needed)
+    env:
+      TZ: Europe/Helsinki
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install deps
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-           - name: Generate artifacts
-        env:
-          TZ: Europe/Helsinki
+      - name: Generate artifacts
         run: |
           python -m src.main --out public
-          # index.html luodaan versionhallinnasta, ei echo-komennolla
-
+          # Huom: EI enää echoa. index.html tulee versionhallinnasta (public/index.html)
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: public
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${ steps.deployment.outputs.page_url }
+    environment: github-pages
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
