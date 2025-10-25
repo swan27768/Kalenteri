@@ -3,7 +3,9 @@ import re
 from datetime import datetime
 from ..model import Event
 
-HEADERS = {'User-Agent': 'OpenDoorsBot/1.0 (+contact@example.com)'}
+HEADERS = {
+    "User-Agent": "OpenDoorsBot/1.0 (+contact@example.com)"
+}
 
 VANTAA_SOURCES = [
     {
@@ -13,15 +15,27 @@ VANTAA_SOURCES = [
     }
 ]
 
-# Esim. "ma 22.1.2025 klo 12–15", "ti 23.1. klo 9.00–11.30"
 DATE_TIME_PATTERN = re.compile(
     r"(?P<weekday>ma|ti|ke|to|pe|la|su)\s+"
     r"(?P<day>\d{1,2})\.(?P<month>\d{1,2})(?:\.(?P<year>20\d{2}))?"
-    r".{0,20}?"          # vähän joustoa tekstin välissä
+    r".{0,40}?"
     r"klo\s+"
     r"(?P<sh>\d{1,2})[.:](?P<sm>\d{2})"
     r"\s*[–-]\s*"
     r"(?P<eh>\d{1,2})[.:](?P<em>\d{2})",
+    re.IGNORECASE
+)
+
+SCHOOL_PATTERNS = [
+    r"Tikkurilan lukio",
+    r"Vaskivuoren lukio",
+    r"Lumon lukio",
+    r"Martinlaakson lukio",
+    r"Varia[^<,\n]*",
+]
+
+SCHOOL_REGEX = re.compile(
+    "(" + "|".join(SCHOOL_PATTERNS) + ")",
     re.IGNORECASE
 )
 
@@ -37,16 +51,15 @@ def fetch_vantaa_events():
         location_hint = src["location_hint"]
 
         try:
-            r = requests.get(url, timeout=30, headers=HEADERS)
-            r.raise_for_status()
+            resp = requests.get(url, timeout=30, headers=HEADERS)
+            resp.raise_for_status()
         except Exception as e:
             print(f"[WARN] Vantaa fetch failed {url}: {e}")
             continue
 
-        html = r.text
+        html = resp.text
 
-        # Selvitetään vuosiviite
-        # Jos vuodet puuttuu joistain riveistä (esim. '22.1.'), käytetään sivulta löytyvää ensimmäistä 20xx
+        # Yritetään arvata vuosi, esim. "2025"
         year_guess = None
         year_match = re.search(r"20\d{2}", html)
         if year_match:
@@ -55,7 +68,11 @@ def fetch_vantaa_events():
         for m in DATE_TIME_PATTERN.finditer(html):
             day = int(m.group("day"))
             month = int(m.group("month"))
-            year = int(m.group("year")) if m.group("year") else year_guess
+            year = m.group("year")
+            if year:
+                year = int(year)
+            else:
+                year = year_guess
 
             sh = int(m.group("sh"))
             sm = int(m.group("sm"))
@@ -63,37 +80,32 @@ def fetch_vantaa_events():
             em = int(m.group("em"))
 
             if year is None:
-                # Jos ei löydy edes guessia, hypätään yli ettei rikota
+                # ei uskalleta tehdä tapahtumaa ilman vuotta
                 continue
 
             start_local = _mk_dt(year, month, day, sh, sm)
             end_local   = _mk_dt(year, month, day, eh, em)
 
-            # Yritetään löytää lähin koulun nimi tälle blokille.
-            # Käytetään yksinkertaista "katsotaan 200 merkkiä taaksepäin"-tekniikkaa.
-            span_start = max(0, m.start() - 200)
-            context = html[span_start:m.start()]
-            # etsitään esim. "Tikkurilan lukio", "Vaskivuoren lukio", "Varia Aviapolis" tms.
-            school_match = re.search(
-                r"(Tikkurilan lukio|Vaskivuoren lukio|Lumon lukio|Varia[^<,\n]*)",
-                context,
-                re.IGNORECASE
-            )
-            if school_match:
-                place_name = school_match.group(0).strip()
-            else:
-                place_name = org_name
+            # etsi koulun nimi 250 merkkiä ennen osumaa
+            span_start = max(0, m.start() - 250)
+            context_before = html[span_start:m.start()]
 
-            title = f"Avoimet ovet – {place_name}"
+            school_match = SCHOOL_REGEX.search(context_before)
+            if school_match:
+                school_name = school_match.group(0).strip()
+            else:
+                school_name = org_name  # fallback: yleinen otsikko
+
+            title = f"Avoimet ovet – {school_name}"
 
             events.append(Event(
                 title=title,
                 start=start_local,
                 end=end_local,
-                location=place_name + ", " + location_hint,
+                location=f"{school_name}, {location_hint}",
                 url=url,
-                organizer=place_name,
-                source_url=url
+                organizer=school_name,
+                source_url=url,
             ))
 
     return events
