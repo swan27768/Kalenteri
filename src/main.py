@@ -5,6 +5,8 @@ from typing import List
 from .model import Event, dump_events_json, dump_events_ics
 from .collectors.ics import fetch_ics
 from .collectors.jsonld import fetch_jsonld_events
+from .collectors.helfi_alppila import fetch_alppila_open_doors
+
 
 def load_sources(path: str):
     with open(path, 'r', encoding='utf-8') as f:
@@ -40,6 +42,19 @@ def run(sources_path: str, out_dir: str):
             events.extend(fetch_jsonld_events(item['url'], item.get('name')))
         except Exception as e:
             print(f"[WARN] HTML JSON-LD failed for {item}: {e}")
+
+        # Custom sources (hardcoded parsers for specific pages)
+    # Alppilan lukio
+    # Voit halutessasi lukea tämän URL:n myös sources.yaml:sta, mutta
+    # jotta päästään liikkeelle nopeasti, kovakoodataan se tähän.
+    try:
+        events.extend(fetch_alppila_open_doors(
+            "https://www.hel.fi/fi/kasvatus-ja-koulutus/alppilan-lukio/tutustu-ja-hae",
+            "Alppilan lukio"
+        ))
+    except Exception as e:
+        print(f"[WARN] Alppila fetch failed: {e}")
+
 
     # Filter: keep future + last 30 days
         # Filter: keep future + last 30 days
