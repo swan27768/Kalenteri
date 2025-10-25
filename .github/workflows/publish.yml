@@ -3,7 +3,7 @@ name: Publish events to GitHub Pages
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *" # ajaa joka päivä klo 06:00 Helsinki-aikaa (noin)
+    - cron: "0 6 * * *" # ajaa joka päivä klo 06:00 (Helsinki-aika noin)
 
 permissions:
   contents: read
@@ -34,14 +34,21 @@ jobs:
           pip install -r requirements.txt
 
       - name: Generate artifacts
-        env:
-          TZ: Europe/Helsinki
         run: |
           python -m src.main --out public
-      # index.html pysyy ennallaan, ei ylikirjoiteta
+          # index.html tulee versiohallinnasta (public/index.html).
+          # ÄLÄ echoa mitään päälle tänne.
 
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
 
-    - name: Deploy to GitHub Pages
-    id: deployment
-    uses: actions/deploy-pages@v4
-
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
