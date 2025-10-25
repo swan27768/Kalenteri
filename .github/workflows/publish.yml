@@ -34,14 +34,12 @@ jobs:
           pip install -r requirements.txt
 
       - name: Generate artifacts
+        env:
+          TZ: Europe/Helsinki
         run: |
           python -m src.main --out public
-          # Huom: EI enää echoa. index.html tulee versionhallinnasta (public/index.html)
+      # index.html pysyy ennallaan, ei ylikirjoiteta
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
 
   deploy:
     needs: build
