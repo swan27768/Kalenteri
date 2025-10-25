@@ -5,7 +5,9 @@ from typing import List
 from .model import Event, dump_events_json, dump_events_ics
 from .collectors.ics import fetch_ics
 from .collectors.jsonld import fetch_jsonld_events
-from .collectors.helfi_alppila import fetch_alppila_open_doors
+from .collectors.helfi_lukio import fetch_all_helfi_lukio
+from .collectors.stadinao import fetch_stadinao_events
+
 
 
 def load_sources(path: str):
