@@ -53,11 +53,12 @@ def run(sources_path: str, out_dir: str):
         except Exception as e:
             print(f"[WARN] HTML JSON-LD failed for {item}: {e}")
 
-    # HELSINGIN LUKIOT (useita kouluja yhdellä kierrolla)
+        # HELSINGIN LUKIOT (useita kouluja yhdellä kierrolla)
     try:
         events.extend(fetch_all_helfi_lukio())
     except Exception as e:
         print(f"[WARN] helfi lukio fetch failed: {e}")
+
 
     # STADIN AMMATTIOPISTO
     try:
