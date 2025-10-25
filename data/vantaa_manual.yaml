@@ -1,16 +1,38 @@
-events:
-  - title: "Avoimet ovet – Tikkurilan lukio"
-    date: "2025-01-22"
-    start: "12:00"
-    end: "15:00"
-    location: "Tikkurilan lukio, Vantaa"
-    organizer: "Tikkurilan lukio"
-    url: "https://www.vantaa.fi/fi/tutustumispaivat-vantaan-lukioihin-ja-variaan"
+import yaml
+from datetime import datetime
+from ..model import Event
 
-  - title: "Avoimet ovet – Varia Aviapolis"
-    date: "2025-01-23"
-    start: "09:00"
-    end: "11:30"
-    location: "Varia Aviapolis, Vantaa"
-    organizer: "Varia"
-    url: "https://www.vantaa.fi/fi/tutustumispaivat-vantaan-lukioihin-ja-variaan"
+def _parse_dt(date_str: str, time_str: str):
+    # "2026-01-20" + "13:00"
+    year, month, day = [int(x) for x in date_str.split("-")]
+    hh, mm = [int(x) for x in time_str.split(":")]
+    return datetime(year, month, day, hh, mm)
+
+def fetch_vantaa_manual():
+    events = []
+    try:
+        with open("data/vantaa_manual.yaml", "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f) or {}
+    except FileNotFoundError:
+        # ei manuaalista dataa -> ei kaaduta, palautetaan tyhjä lista
+        return events
+
+    for row in data.get("events", []):
+        try:
+            start_dt = _parse_dt(row["date"], row["start"])
+            end_dt = _parse_dt(row["date"], row["end"])
+        except Exception as e:
+            print(f"[WARN] Vantaa manual time parse failed for {row}: {e}")
+            continue
+
+        events.append(Event(
+            title=row.get("title", "Avoimet ovet"),
+            start=start_dt,
+            end=end_dt,
+            location=row.get("location"),
+            url=row.get("url"),
+            organizer=row.get("organizer"),
+            source_url=row.get("url"),
+        ))
+
+    return events
