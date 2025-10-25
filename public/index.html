@@ -336,12 +336,13 @@
 <footer>
   Tämä on koonti eri lähteistä (lukioiden sivut, Stadin AO, ja mahdolliset julkiset kalenterit).
   <br />
-  Julkinen koneellisesti luettava data: <a href="events.json">events.json</a> • <a href="opendoors.ics">opendoors.ics</a>
+  Julkinen koneellisesti luettava data:
+  <a href="events.json">events.json</a> • <a href="opendoors.ics">opendoors.ics</a>
 </footer>
 
 <script>
 (async function () {
-  // Helperit
+  // -------- Helpers --------
 
   function pad2(n) {
     return n < 10 ? "0" + n : "" + n;
@@ -354,6 +355,7 @@
 
     const sh = pad2(start.getHours());
     const sm = pad2(start.getMinutes());
+
     let txt = sh + ":" + sm;
     if (end) {
       const eh = pad2(end.getHours());
@@ -366,39 +368,66 @@
   function formatDateObj(startISO) {
     const d = new Date(startISO);
     const day = d.getDate();
-    const month = d.toLocaleString("fi-FI", { month: "short" })
-      .replace(".", ""); // "tammi." -> "tammi"
+    const month = d.toLocaleString("fi-FI", { month: "short" }).replace(".", "");
     return { day, month };
   }
 
   function detectTag(ev) {
-    // Luodaan kevyt tagi filtteröintiä varten:
-    // jos organizer sisältää "Stadin", laitetaan stadinao, muuten lukio
+    // jos organizer sisältää "Stadin", merkitään stadinao, muuten lukio
     if ((ev.organizer || "").toLowerCase().includes("stadin")) {
       return "stadinao";
     }
     return "lukio";
   }
 
-  // Hae data
+  function escapeHtml(str) {
+    return (str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function escapeAttr(str) {
+    return (str || "")
+      .replace(/"/g, "&quot;");
+  }
+
+  // -------- Hae data turvallisesti --------
   let events = [];
   try {
     const res = await fetch("events.json", { cache: "no-store" });
-    events = await res.json();
-  } catch (e) {
-    console.error("events.json fetch fail:", e);
+    if (!res.ok) {
+      console.warn("events.json HTTP status", res.status);
+      events = [];
+    } else {
+      events = await res.json();
+      if (!Array.isArray(events)) {
+        console.warn("events.json ei ole lista");
+        events = [];
+      }
+    }
+  } catch (err) {
+    console.error("events.json fetch fail:", err);
     events = [];
   }
 
-  // Järjestä aikajärjestykseen
-  events.sort((a,b) => new Date(a.start) - new Date(b.start));
+  // sortataan päivämäärän mukaan
+  events.sort((a, b) => new Date(a.start) - new Date(b.start));
 
-  // Pidä kopio suodatusta varten
-  let filteredEvents = [...events];
+  // Tarvittavat DOM-elementit
   const wrapper = document.getElementById("events-wrapper");
   const countEl = document.getElementById("event-count");
   const searchInput = document.getElementById("search");
   const filterPills = Array.from(document.querySelectorAll(".filter-pill"));
+
+  // fallback jos wrapper/countEl puuttuu (ei pitäisi puuttua, mutta estää valkoisen ruudun totaalikaadon)
+  if (!wrapper || !countEl) {
+    console.error("Pakolliset elementit puuttuu sivulta");
+    return;
+  }
+
+  // kopio joita suodatetaan
+  let filteredEvents = [...events];
 
   function renderList(list) {
     wrapper.innerHTML = "";
@@ -414,7 +443,6 @@
     list.forEach(ev => {
       const { day, month } = formatDateObj(ev.start);
       const timeRange = formatTimeRange(ev.start, ev.end);
-
       const tag = detectTag(ev); // "lukio" / "stadinao"
 
       const card = document.createElement("article");
@@ -443,8 +471,9 @@
   }
 
   function applyFilters() {
-    const q = searchInput.value.trim().toLowerCase();
-    const activeFilter = filterPills.find(p => p.classList.contains("active"))?.dataset.filter || "all";
+    const q = (searchInput?.value || "").trim().toLowerCase();
+    const activeFilter =
+      filterPills.find(p => p.classList.contains("active"))?.dataset.filter || "all";
 
     let out = events.slice();
 
@@ -454,11 +483,12 @@
 
     if (q) {
       out = out.filter(ev => {
-        const hay =
-          (ev.title || "") + " " +
-          (ev.organizer || "") + " " +
-          (ev.location || "") + " " +
-          (ev.url || "");
+        const hay = [
+          ev.title || "",
+          ev.organizer || "",
+          ev.location || "",
+          ev.url || ""
+        ].join(" ");
         return hay.toLowerCase().includes(q);
       });
     }
@@ -467,24 +497,14 @@
     renderList(filteredEvents);
   }
 
-  // XSS-suojaukseen pienet helperit
-  function escapeHtml(str) {
-    return (str || "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  }
-  function escapeAttr(str) {
-    return (str || "")
-      .replace(/"/g, "&quot;");
+  // tapahtumakenttien hakuboksi
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      applyFilters();
+    });
   }
 
-  // Bind search
-  searchInput.addEventListener("input", () => {
-    applyFilters();
-  });
-
-  // Bind filter pills
+  // filter-pill klikkaukset
   filterPills.forEach(pill => {
     pill.addEventListener("click", () => {
       filterPills.forEach(x => x.classList.remove("active"));
@@ -493,7 +513,7 @@
     });
   });
 
-  // Alustarenderöinti
+  // ensirenderöinti
   renderList(filteredEvents);
   applyFilters();
 })();
