@@ -30,12 +30,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Generate artifacts
+           - name: Generate artifacts
         env:
           TZ: Europe/Helsinki
         run: |
           python -m src.main --out public
-          echo 'OpenDoors Bot' > public/index.html
+          # index.html luodaan versionhallinnasta, ei echo-komennolla
+
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
