@@ -1,6 +1,5 @@
 ics:
   - name: OPOkalenteri (Google)
     url: https://calendar.google.com/calendar/ical/c_grq1e5hlfa2siuodtihmp6l0r0%40group.calendar.google.com/public/basic.ics
-html:
-  - name: Example site with JSON-LD (replace me)
-    url: https://example.org/events
+html: []
+  
