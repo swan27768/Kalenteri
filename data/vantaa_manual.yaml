@@ -1,0 +1,16 @@
+events:
+  - title: "Avoimet ovet – Tikkurilan lukio"
+    date: "2025-01-22"
+    start: "12:00"
+    end: "15:00"
+    location: "Tikkurilan lukio, Vantaa"
+    organizer: "Tikkurilan lukio"
+    url: "https://www.vantaa.fi/fi/tutustumispaivat-vantaan-lukioihin-ja-variaan"
+
+  - title: "Avoimet ovet – Varia Aviapolis"
+    date: "2025-01-23"
+    start: "09:00"
+    end: "11:30"
+    location: "Varia Aviapolis, Vantaa"
+    organizer: "Varia"
+    url: "https://www.vantaa.fi/fi/tutustumispaivat-vantaan-lukioihin-ja-variaan"
