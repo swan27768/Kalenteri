@@ -7,32 +7,29 @@ events:
     organizer: "Lumon lukio"
     url: "https://lumonlukio.vantaa.fi/fi/ajankohtaista"
 
-   - title: "Avoimet ovet – Tikkurilan lukio (yleislinja klo 13.00)"
+  - title: "Avoimet ovet – Tikkurilan lukio (kierros klo 13.00)"
     date: "2026-01-19"
     start: "13:00"
     end: "14:00"
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio"
     url: "https://sotunginlukio.vantaa.fi/fi"
-    notes: "Yleislinja hakijoille klo 13.00. Toivomme osallistuvan: Havukosken koulu, Peltolan koulu, Jokiniemen koulu."
 
-  - title: "Avoimet ovet – Tikkurilan lukio (yleislinja klo 14.00)"
+  - title: "Avoimet ovet – Tikkurilan lukio (kierros klo 14.00)"
     date: "2026-01-19"
     start: "14:00"
     end: "15:00"
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio"
     url: "https://sotunginlukio.vantaa.fi/fi"
-    notes: "Yleislinja hakijoille klo 14.00. Toivomme osallistuvan: Koivukylän koulu, Leppäkorven koulu, Mikkolan koulu, Ruusuvuoren koulu, Simonkylän koulu, ISV."
 
-  - title: "Avoimet ovet – Tikkurilan lukio (yleislinja klo 15.00)"
+  - title: "Avoimet ovet – Tikkurilan lukio (kierros klo 15.00)"
     date: "2026-01-19"
     start: "15:00"
     end: "16:00"
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio"
     url: "https://sotunginlukio.vantaa.fi/fi"
-    notes: "Yleislinja hakijoille klo 15.00. Toivomme osallistuvan: Vantaan ulkopuoliset peruskoulut, Aurinkokiven koulu, Lehtikuusen koulu, Hämeenkylän koulu, Kartanonkosken koulu, Kilterin koulu, Länsimäen koulu, Martinlaakson koulu, Sotungin koulu, Veromäen koulu, Ylästön koulu."
 
   - title: "IB Open House – Tikkurilan lukio (hakijoille klo 15.00)"
     date: "2026-01-19"
@@ -41,7 +38,6 @@ events:
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio (IB-linja)"
     url: "https://sotunginlukio.vantaa.fi/fi"
-    notes: "IB Open House for pre-DP applicants."
 
   - title: "IB Open House – Tikkurilan lukio (huoltajille klo 18.00)"
     date: "2026-01-19"
@@ -50,8 +46,6 @@ events:
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio (IB-linja)"
     url: "https://sotunginlukio.vantaa.fi/fi"
-    notes: "IB Open House for guardians."
-
 
   - title: "Avoimet ovet – Aviapoliksen lukio / Varia"
     date: "2026-01-26"
