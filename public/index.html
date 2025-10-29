@@ -307,7 +307,6 @@
       infotilaisuudet ja tutustumispäivät yhteen paikkaan.
       Mukana mm. Helsingin lukiot, Stadin ammattiopisto, Vantaan lukiot ja Varia,
       Kerava / Keuda sekä Espoo / Omnia.
-      Päivittyy automaattisesti GitHub Actions -ajosta.
     </div>
 
     <div class="meta-row">
@@ -424,6 +423,35 @@
   // sortataan päivämäärän mukaan
   events.sort((a, b) => new Date(a.start) - new Date(b.start));
 
+    // Järjestä ja poista menneet tapahtumat.
+  // "Menneet" = ne joiden loppu on mennyt, tai jos ei ole end, niin start on mennyt.
+  const now = new Date();
+
+  function isInFuture(ev) {
+    const start = new Date(ev.start);
+    const end = ev.end ? new Date(ev.end) : null;
+
+    // jos tapahtumalla on päättymisaika ja se on jo ohi -> ei näytetä
+    if (end && end < now) {
+      return false;
+    }
+    // jos ei päättymisaikaa, mutta aloitus on jo menneisyydessä -> ei näytetä
+    if (!end && start < now) {
+      return false;
+    }
+    return true;
+  }
+
+  // Suodata vain tulevat / käynnissä olevat
+  events = events.filter(isInFuture);
+
+  // Lajittele tulevat aikajärjestykseen
+  events.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+  // Pidä kopio suodatusta varten
+  let filteredEvents = [...events];
+
+
   // Tarvittavat DOM-elementit
   const wrapper = document.getElementById("events-wrapper");
   const countEl = document.getElementById("event-count");
@@ -439,16 +467,53 @@
   // kopio joita suodatetaan
   let filteredEvents = [...events];
 
-  function renderList(list) {
+    function renderList(list) {
     wrapper.innerHTML = "";
 
     if (!list.length) {
-      wrapper.innerHTML = '<div class="empty-state">Ei osumia valituilla ehdoilla…</div>';
+      wrapper.innerHTML = '<div class="empty-state">Ei tulevia tapahtumia…</div>';
       countEl.textContent = "0 tapahtumaa";
       return;
     }
 
-    countEl.textContent = list.length + " tapahtumaa";
+    countEl.textContent = list.length + " tulevaa tapahtumaa";
+
+    list.forEach((ev, idx) => {
+      const { day, month } = formatDateObj(ev.start);
+      const timeRange = formatTimeRange(ev.start, ev.end);
+
+      const tag = detectTag(ev); // "lukio" / "stadinao" / jne
+
+      const card = document.createElement("article");
+      card.className = "event-card";
+      card.setAttribute("data-tag", tag);
+
+      // jos tämä on ensimmäinen tuleva tapahtuma, lisätään pieni koroste
+      const highlight = idx === 0
+        ? '<div style="font-size:.7rem;font-weight:500;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;">Seuraava tapahtuma</div>'
+        : '';
+
+      card.innerHTML = `
+        <div class="event-datebox">
+          <div class="event-date-day">${day}</div>
+          <div class="event-date-month">${month}</div>
+          <div class="event-time">${timeRange ? timeRange : ""}</div>
+        </div>
+        <div class="event-body">
+          ${highlight}
+          <div class="event-title-row">
+            <div class="event-title">${escapeHtml(ev.title || "Avoimet ovet")}</div>
+            <div class="event-org">${escapeHtml(ev.organizer || "")}</div>
+          </div>
+          <div class="event-location">
+            ${escapeHtml(ev.location || "")}
+          </div>
+          ${ev.url ? `<a class="event-link" href="${escapeAttr(ev.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ev.url)}</a>` : ""}
+        </div>
+      `;
+      wrapper.appendChild(card);
+    });
+  }
 
     list.forEach(ev => {
       const { day, month } = formatDateObj(ev.start);
@@ -480,16 +545,34 @@
     });
   }
 
-  function applyFilters() {
-    const q = (searchInput?.value || "").trim().toLowerCase();
-    const activeFilter =
-      filterPills.find(p => p.classList.contains("active"))?.dataset.filter || "all";
+    function applyFilters() {
+    const q = searchInput.value.trim().toLowerCase();
+    const activeFilter = filterPills.find(p => p.classList.contains("active"))?.dataset.filter || "all";
 
+    // aloita aina puhtaasta future-listasta
     let out = events.slice();
 
+    // suodata kategorian mukaan (lukio / stadinao / tms)
     if (activeFilter !== "all") {
       out = out.filter(ev => detectTag(ev) === activeFilter);
     }
+
+    // suodata hakusanan mukaan
+    if (q) {
+      out = out.filter(ev => {
+        const hay =
+          (ev.title || "") + " " +
+          (ev.organizer || "") + " " +
+          (ev.location || "") + " " +
+          (ev.url || "");
+        return hay.toLowerCase().includes(q);
+      });
+    }
+
+    filteredEvents = out;
+    renderList(filteredEvents);
+  }
+
 
     if (q) {
       out = out.filter(ev => {
