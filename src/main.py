@@ -9,9 +9,7 @@ from .collectors.stadinao import fetch_stadinao_events
 from .collectors.vantaa_lukio import fetch_vantaa_lukio
 from .collectors.vantaa_manual import fetch_vantaa_manual
 from .collectors.keuda_manual import fetch_keuda_manual
-
-
-
+from .collectors.kerava_manual import fetch_kerava_manual
 
 
 def load_sources(path: str):
@@ -86,7 +84,12 @@ def run(sources_path: str, out_dir: str):
     except Exception as e:
         print(f"[WARN] Keuda manual fetch failed: {e}")
 
-        
+        # KERAVAN LUKIO (manuaalidata)
+    try:
+        events.extend(fetch_kerava_manual())
+    except Exception as e:
+        print(f"[WARN] Kerava manual fetch failed: {e}")
+
     # Suodata + normalisoi ajat
     now = datetime.now(timezone.utc)
     keep = []
