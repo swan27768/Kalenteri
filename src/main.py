@@ -8,6 +8,8 @@ from .collectors.helfi_lukio import fetch_all_helfi_lukio
 from .collectors.stadinao import fetch_stadinao_events
 from .collectors.vantaa_lukio import fetch_vantaa_lukio
 from .collectors.vantaa_manual import fetch_vantaa_manual
+from .collectors.keuda_manual import fetch_keuda_manual
+
 
 
 
