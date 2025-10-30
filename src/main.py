@@ -80,6 +80,11 @@ def run(sources_path: str, out_dir: str):
     except Exception as e:
         print(f"[WARN] Vantaa manual fetch failed: {e}")
 
+        # KEUDA (Keski-Uudenmaan koulutuskuntayhtymä)
+    try:
+        events.extend(fetch_keuda_manual())
+    except Exception as e:
+        print(f"[WARN] Keuda manual fetch failed: {e}")
 
         
     # Suodata + normalisoi ajat
