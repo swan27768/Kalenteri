@@ -1,81 +1,64 @@
 events:
   - title: "Avoimet ovet – Ressun lukio"
-    date: "2026-01-20"        # MUUTA oikeaksi päiväksi (YYYY-MM-DD)
-    start: "18:00"            # MUUTA oikeaksi ajaksi (HH:MM)
-    end: "19:30"              # voit poistaa jos ei loppuaikaa
+  #  date: "2026-01-08"        # MUUTA oikeaksi päiväksi (YYYY-MM-DD)
+  # start: "18:00"            # MUUTA oikeaksi ajaksi (HH:MM)
+  #  end: "19:30"              # voit poistaa jos ei loppuaikaa
     location: "Ressun lukio, Helsinki"
     organizer: "Ressun lukio"
-    url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/ressun-lukio/tutustu-ja-hae/nain-haet"
+    url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/ressun-lukio/tutustu-ja-hae/nain-haet" 
 
   - title: "Avoimet ovet – Mäkelänrinteen lukio"
-    date: "2026-02-04"        # MUUTA
-    start: "17:30"            # MUUTA
-    end: "19:00"              # MUUTA tai poista
+    date: "2026-01-13"        # MUUTA
+    start: "13:30"            # MUUTA
     location: "Mäkelänrinteen lukio, Helsinki"
     organizer: "Mäkelänrinteen lukio"
     url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/makelanrinteen-lukio/tutustu-ja-hae/makelanrinteen-lukion-esittelyt-kevaalla-2026"
 
   - title: "Avoimet ovet – Kallion lukio"
-    date: "2026-01-15"        # MUUTA
-    start: "18:00"            # MUUTA
-    end: "19:30"              # halutessa
+  #   date: "2026-01-15"        # MUUTA
+  #  start: "18:00"            # MUUTA
+  #  end: "19:30"              # halutessa
     location: "Kallion lukio, Helsinki"
     organizer: "Kallion lukio"
     url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/kallion-lukio/tutustu-ja-hae"
 
   - title: "Avoimet ovet – Etu-Töölön lukio"
-    date: "2026-01-22"        # MUUTA
-    start: "18:00"            # MUUTA
-    end: "19:30"              # halutessa
+    date: "2026-01-15"        # MUUTA
+    start: "14:00"            # MUUTA
+    end: "15:00"              # halutessa
     location: "Etu-Töölön lukio, Helsinki"
     organizer: "Etu-Töölön lukio"
     url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/etu-toolon-lukio/tutustu-tylyyn"
 
   - title: "Avoimet ovet – Helsingin luonnontiedelukio"
-    date: "2026-01-21"        # MUUTA
-    start: "17:00"            # MUUTA
-    end: "19:00"              # halutessa
+    date: "2026-01-12"        # MUUTA
+    start: "14:00"            # MUUTA
+    end: "15:00"              # halutessa
     location: "Helsingin luonnontiedelukio, Helsinki"
     organizer: "Helsingin luonnontiedelukio"
     url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-luonnontiedelukio/tutustu-ja-hae"
 
   - title: "Infoilta / avoimet ovet – Helsingin medialukio"
-    date: "2026-01-28"        # MUUTA
-    start: "18:00"            # MUUTA
-    end: "19:30"              # halutessa
+    date: "2026-01-22"        # MUUTA
+    start: "14:00"            # MUUTA
+    end: "15:00"              # halutessa
     location: "Helsingin medialukio, Helsinki"
     organizer: "Helsingin medialukio"
     url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-medialukio/tutustu-ja-hae"
 
   - title: "Avoimet ovet – Helsingin kielilukio (9.-luokkalaisille)"
-    date: "2025-11-20"        # MUUTA
-    start: "18:00"            # MUUTA
-    end: "19:30"              # halutessa
+    #date: "2025-11-20"        # MUUTA
+   #start: "18:00"            # MUUTA
+   # end: "19:30"              # halutessa
     location: "Helsingin kielilukio, Helsinki"
     organizer: "Helsingin kielilukio"
     url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-kielilukion-esittelytilaisuudet-9-luokkalaisille-seka-huoltajille-alkavat-marraskuussa"
 
-  - title: "Avoimet ovet – Konepajan lukio"
-    date: "2026-01-27"        # MUUTA
-    start: "17:00"            # MUUTA
-    end: "18:30"              # halutessa
-    location: "Konepajan lukio, Helsinki"
-    organizer: "Konepajan lukio"
-    url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/konepajan-lukio/tutustu-konepajan-lukioon"
-
   - title: "Avoimet ovet – Viikin normaalikoulun lukio (9.-luokkalaisille)"
     date: "2026-01-13"        # MUUTA
     start: "14:00"            # MUUTA
-    end: "15:30"              # halutessa
     location: "Viikin normaalikoulu, Helsinki"
     organizer: "Viikin normaalikoulun lukio"
     url: "https://www.helsinki.fi/fi/harjoittelukoulut/viikin-normaalikoulu/opetus/lukio/opiskelijaksi-viikin-normaalikoulun-lukioon"
 
-
-  - title: "Avoimet ovet – SYK / Helsingin suomalais-venäläinen koulu"
-    date: "2026-01-29"        # MUUTA
-    start: "17:00"            # MUUTA
-    end: "18:30"              # halutessa
-    location: "SYK, Helsinki"
-    organizer: "SYK"
-    url: "https://syk.fi/lukio/hakeminen/"
+  
