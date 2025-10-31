@@ -20,17 +20,17 @@ LUKIOT = [
     },
     {
         "name": "Ressun lukio",
-        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/ressun-lukio/tutustu-ja-hae",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/ressun-lukio/tutustu-ja-hae/nain-haet",
         "location": "Ressun lukio, Helsinki"
     },
     {
         "name": "Mäkelänrinteen lukio",
-        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/makelanrinteen-lukio/tutustu-ja-hae",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/makelanrinteen-lukio/tutustu-ja-hae/makelanrinteen-lukion-esittelyt-kevaalla-2026",
         "location": "Mäkelänrinteen lukio, Helsinki"
     },
     {
         "name": "Etu-Töölön lukio",
-        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/etu-toolon-lukio/tutustu-ja-hae",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/etu-toolon-lukio/tutustu-tylyyn",
         "location": "Etu-Töölön lukio, Helsinki"
     },
     {
@@ -43,20 +43,21 @@ LUKIOT = [
         "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-medialukio/tutustu-ja-hae",
         "location": "Helsingin medialukio, Helsinki"
     },
-    {
-        "name": "Hiidenkiven lukio",
-        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/hiidenkiven-lukio/tutustu-ja-hae",
-        "location": "Hiidenkiven lukio, Helsinki"
-    },
+
     {
         "name": "SYK",
-        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/syk/tutustu-ja-hae",
+        "url": "https://syk.fi/lukio/hakeminen/",
         "location": "Suomalais-venäläinen koulu / SYK, Helsinki"
     },
     {
         "name": "Helsingin kielilukio",
-        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-kielilukio/tutustu-ja-hae",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/helsingin-kielilukion-esittelytilaisuudet-9-luokkalaisille-seka-huoltajille-alkavat-marraskuussa",
         "location": "Helsingin kielilukio, Helsinki"
+    },
+     {
+        "name": "Konepajan lukio",
+        "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/konepajan-lukio/tutustu-konepajan-lukioon",
+        "location": "Konepajan lukio, Helsinki"
     },
     # Lisää tähän loput lukioista samalla kaavalla
 ]
