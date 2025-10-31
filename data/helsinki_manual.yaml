@@ -71,13 +71,6 @@ events:
     organizer: "Viikin normaalikoulun lukio"
     url: "https://www.helsinki.fi/fi/harjoittelukoulut/viikin-normaalikoulu/opetus/lukio/opiskelijaksi-viikin-normaalikoulun-lukioon"
 
-  - title: "Huoltajailta / vanhempainilta – Viikin normaalikoulun lukio"
-    date: "2026-01-13"        # MUUTA
-    start: "18:00"            # MUUTA
-    end: "19:00"              # halutessa
-    location: "Viikin normaalikoulu, Helsinki"
-    organizer: "Viikin normaalikoulun lukio"
-    url: "https://www.helsinki.fi/fi/harjoittelukoulut/viikin-normaalikoulu/opetus/lukio/opiskelijaksi-viikin-normaalikoulun-lukioon"
 
   - title: "Avoimet ovet – SYK / Helsingin suomalais-venäläinen koulu"
     date: "2026-01-29"        # MUUTA
