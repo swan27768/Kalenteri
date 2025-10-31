@@ -59,6 +59,11 @@ LUKIOT = [
         "url": "https://www.hel.fi/fi/kasvatus-ja-koulutus/konepajan-lukio/tutustu-konepajan-lukioon",
         "location": "Konepajan lukio, Helsinki"
     },
+     {
+        "name": "Viikin normaalikoulun lukio",
+        "url": "https://www.helsinki.fi/fi/harjoittelukoulut/viikin-normaalikoulu/opetus/lukio/opiskelijaksi-viikin-normaalikoulun-lukioon",
+        "location": "Viikin normaalikoulun lukio, Helsinki"
+    },
     # Lisää tähän loput lukioista samalla kaavalla
 ]
 
