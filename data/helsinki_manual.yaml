@@ -61,4 +61,11 @@ events:
     organizer: "Viikin normaalikoulun lukio"
     url: "https://www.helsinki.fi/fi/harjoittelukoulut/viikin-normaalikoulu/opetus/lukio/opiskelijaksi-viikin-normaalikoulun-lukioon"
 
+  - title: "Avoimet ovet – Sibelius-lukio"
+    date: "2026-01-13"        # MUUTA
+    start: "14:00"            # MUUTA
+    location: "Sibelius-lukio, Helsinki"
+    organizer: "Sibelius-lukio"
+    url: "https://www.hel.fi/fi/kasvatus-ja-koulutus/sibelius-lukio/tutustu-ja-hae-sibelius-lukioon"
+
   
