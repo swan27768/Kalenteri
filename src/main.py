@@ -10,6 +10,8 @@ from .collectors.vantaa_lukio import fetch_vantaa_lukio
 from .collectors.vantaa_manual import fetch_vantaa_manual
 from .collectors.keuda_manual import fetch_keuda_manual
 from .collectors.kerava_manual import fetch_kerava_manual
+from .collectors.helsinki_manual import fetch_helsinki_manual
+
 
 
 def load_sources(path: str):
@@ -89,6 +91,13 @@ def run(sources_path: str, out_dir: str):
         events.extend(fetch_kerava_manual())
     except Exception as e:
         print(f"[WARN] Kerava manual fetch failed: {e}")
+
+        # HELSINGIN LUKIOT (manuaalidata esim. Ressu, Märsky, Kallio, Etu-Töölö, Viikin norssi, SYK...)
+    try:
+        events.extend(fetch_helsinki_manual())
+    except Exception as e:
+        print(f"[WARN] Helsinki manual fetch failed: {e}")
+
 
     # Suodata + normalisoi ajat
     now = datetime.now(timezone.utc)
