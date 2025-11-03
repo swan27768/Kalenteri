@@ -11,6 +11,8 @@ from .collectors.vantaa_manual import fetch_vantaa_manual
 from .collectors.keuda_manual import fetch_keuda_manual
 from .collectors.kerava_manual import fetch_kerava_manual
 from .collectors.helsinki_manual import fetch_helsinki_manual
+from .collectors.careeria_manual import fetch_careeria_manual
+
 
 
 
@@ -97,6 +99,13 @@ def run(sources_path: str, out_dir: str):
         events.extend(fetch_helsinki_manual())
     except Exception as e:
         print(f"[WARN] Helsinki manual fetch failed: {e}")
+
+        # CAREERIA (manuaalidata)
+    try:
+        events.extend(fetch_careeria_manual())
+    except Exception as e:
+        print(f"[WARN] Careeria manual fetch failed: {e}")
+
 
 
     # Suodata + normalisoi ajat
