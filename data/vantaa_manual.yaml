@@ -7,13 +7,6 @@ events:
     organizer: "Lumon lukio"
     url: "https://lumonlukio.vantaa.fi/fi/ajankohtaista"
 
-  - title: "Avoimet ovet – Tikkurilan lukio (kierros klo 13.00)"
-    date: "2026-01-19"
-    start: "13:00"
-    end: "14:00"
-    location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
-    organizer: "Tikkurilan lukio"
-    url: "https://sotunginlukio.vantaa.fi/fi"
 
   - title: "Avoimet ovet – Tikkurilan lukio (kierros klo 14.00)"
     date: "2026-01-19"
@@ -21,23 +14,16 @@ events:
     end: "15:00"
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio"
-    url: "https://sotunginlukio.vantaa.fi/fi"
+    url: "https://tikkurilanlukio.vantaa.fi/fi/hae-tiluun"
 
-  - title: "Avoimet ovet – Tikkurilan lukio (kierros klo 15.00)"
-    date: "2026-01-19"
-    start: "15:00"
-    end: "16:00"
-    location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
-    organizer: "Tikkurilan lukio"
-    url: "https://sotunginlukio.vantaa.fi/fi"
-
+ 
   - title: "IB Open House – Tikkurilan lukio (hakijoille klo 15.00)"
     date: "2026-01-19"
     start: "15:00"
     end: "16:00"
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio (IB-linja)"
-    url: "https://sotunginlukio.vantaa.fi/fi"
+    url: "https://tikkurilanlukio.vantaa.fi/fi/hae-tiluun"
 
   - title: "IB Open House – Tikkurilan lukio (huoltajille klo 18.00)"
     date: "2026-01-19"
