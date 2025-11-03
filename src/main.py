@@ -1,6 +1,8 @@
 import argparse, os, yaml
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import List
+from zoneinfo import ZoneInfo
+
 from .model import Event, dump_events_json, dump_events_ics
 from .collectors.ics import fetch_ics
 from .collectors.jsonld import fetch_jsonld_events
@@ -12,6 +14,9 @@ from .collectors.keuda_manual import fetch_keuda_manual
 from .collectors.kerava_manual import fetch_kerava_manual
 from .collectors.helsinki_manual import fetch_helsinki_manual
 from .collectors.careeria_manual import fetch_careeria_manual
+
+
+LOCAL_TZ = ZoneInfo("Europe/Helsinki")
 
 
 def load_sources(path: str):
@@ -55,78 +60,71 @@ def run(sources_path: str, out_dir: str):
         except Exception as e:
             print(f"[WARN] HTML JSON-LD failed for {item}: {e}")
 
-        # HELSINGIN LUKIOT (useita kouluja yhdellä kierrolla)
+    # HELSINGIN LUKIOT (regex-scrape)
     try:
         events.extend(fetch_all_helfi_lukio())
     except Exception as e:
         print(f"[WARN] helfi lukio fetch failed: {e}")
-
 
     # STADIN AMMATTIOPISTO
     try:
         events.extend(fetch_stadinao_events())
     except Exception as e:
         print(f"[WARN] Stadin AO fetch failed: {e}")
-        
+
     # Vantaan lukiot & Varia
     try:
         events.extend(fetch_vantaa_lukio())
     except Exception as e:
         print(f"[WARN] Vantaa lukio fetch failed: {e}")
 
-           # VANTAA (manuaalidata, esim. Lumon lukio, Varia, jne)
+    # VANTAA (manuaalidata, esim. Lumon lukio, Varia, jne)
     try:
         events.extend(fetch_vantaa_manual())
     except Exception as e:
         print(f"[WARN] Vantaa manual fetch failed: {e}")
 
-        # KEUDA (Keski-Uudenmaan koulutuskuntayhtymä)
+    # KEUDA (Keski-Uudenmaan koulutuskuntayhtymä)
     try:
         events.extend(fetch_keuda_manual())
     except Exception as e:
         print(f"[WARN] Keuda manual fetch failed: {e}")
 
-        # KERAVAN LUKIO (manuaalidata)
+    # KERAVAN LUKIO (manuaalidata)
     try:
         events.extend(fetch_kerava_manual())
     except Exception as e:
         print(f"[WARN] Kerava manual fetch failed: {e}")
 
-        # HELSINGIN LUKIOT (manuaalidata esim. Ressu, Märsky, Kallio, Etu-Töölö, Viikin norssi, SYK...)
+    # HELSINGIN LUKIOT (manuaalidata esim. Ressu, Märsky, Kallio, Etu-Töölö, Viikin norssi, SYK...)
     try:
         events.extend(fetch_helsinki_manual())
     except Exception as e:
         print(f"[WARN] Helsinki manual fetch failed: {e}")
 
-        # CAREERIA (manuaalidata)
+    # CAREERIA (manuaalidata)
     try:
         events.extend(fetch_careeria_manual())
     except Exception as e:
         print(f"[WARN] Careeria manual fetch failed: {e}")
 
-
-
     # Suodata + normalisoi ajat
-    now = datetime.now(timezone.utc)
-    keep = []
-
-    from zoneinfo import ZoneInfo
-    LOCAL_TZ = ZoneInfo("Europe/Helsinki")
+    now = datetime.now(LOCAL_TZ)
+    keep: List[Event] = []
 
     def ensure_datetime(dt):
-            """
-            Ottaa joko datetime- tai date-olion ja palauttaa timezone-aware datetime Helsingin ajassa.
-            """
+        """
+        Ottaa joko datetime- tai date-olion ja palauttaa timezone-aware datetime Helsingin ajassa.
+        """
         if hasattr(dt, "tzinfo"):
-        # Jos dt on datetime-tyyppi (tai datetime-like)
+            # dt on datetime-tyyppi (tai datetime-like)
             if dt.tzinfo is None:
-            # Tulkitaan paikalliseksi ajaksi (Europe/Helsinki), ei UTC:ksi
+                # Tulkitaan paikalliseksi ajaksi (Europe/Helsinki), ei UTC:ksi
                 return dt.replace(tzinfo=LOCAL_TZ)
             return dt.astimezone(LOCAL_TZ)
         else:
-        # Jos dt on pelkkä date-olio -> tulkitaan klo 00:00 Helsingin aikaa
+            # dt on pelkkä date-olio -> tulkitaan klo 00:00 Helsingin aikaa
             return datetime(dt.year, dt.month, dt.day, 0, 0, tzinfo=LOCAL_TZ)
-
 
     for e in events:
         # normalisoi alku ja loppu datet -> datetimes
@@ -160,4 +158,3 @@ if __name__ == '__main__':
     ap.add_argument('--out', default='dist')
     args = ap.parse_args()
     run(args.sources, args.out)
-
