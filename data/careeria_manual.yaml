@@ -1,0 +1,10 @@
+events:
+  - title: "Avoimet ovet – Careeria (Porvoo)"
+    date: "2025-11-13"      # MUUTA oikeaksi
+    start: "08:30"          # MUUTA oikeaksi
+    end: "11:00"            # tarvittaessa, voi poistaa
+    location: "Careeria, Virmatie 5, Vantaa"   # päivitä oikea osoite
+    organizer: "Careeria"
+    url: "https://careeria.fi/yhteishaku/"
+
+  
