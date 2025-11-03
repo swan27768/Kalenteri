@@ -31,14 +31,14 @@ events:
     end: "19:00"
     location: "Tikkurilan lukio, Valkoisenlähteentie 53, Vantaa"
     organizer: "Tikkurilan lukio (IB-linja)"
-    url: "https://sotunginlukio.vantaa.fi/fi"
+    url: "https://tikkurilanlukio.vantaa.fi/fi/hae-tiluun"
 
   - title: "Avoimet ovet – Aviapoliksen lukio / Varia"
     date: "2026-01-26"
     start: "15:00"
     location: "Varian väistötilat, Aerolankatu 5, Vantaa"
     organizer: "Varia (Aviapolis)"
-    url: "https://sotunginlukio.vantaa.fi/fi"
+    
 
   - title: "Avoimet ovet – Sotungin lukio"
     date: "2026-01-22"
