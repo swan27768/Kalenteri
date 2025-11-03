@@ -14,8 +14,6 @@ from .collectors.helsinki_manual import fetch_helsinki_manual
 from .collectors.careeria_manual import fetch_careeria_manual
 
 
-
-
 def load_sources(path: str):
     with open(path, 'r', encoding='utf-8') as f:
         return yaml.safe_load(f) or {}
@@ -112,18 +110,23 @@ def run(sources_path: str, out_dir: str):
     now = datetime.now(timezone.utc)
     keep = []
 
+    from zoneinfo import ZoneInfo
+    LOCAL_TZ = ZoneInfo("Europe/Helsinki")
+
     def ensure_datetime(dt):
-        """
-        Ottaa joko datetime- tai date-olion ja palauttaa timezone-aware datetime UTC:ssä.
-        """
+            """
+            Ottaa joko datetime- tai date-olion ja palauttaa timezone-aware datetime Helsingin ajassa.
+            """
         if hasattr(dt, "tzinfo"):
-            # dt on datetime-tyyppi (tai datetime-like)
+        # Jos dt on datetime-tyyppi (tai datetime-like)
             if dt.tzinfo is None:
-                return dt.replace(tzinfo=timezone.utc)
-            return dt.astimezone(timezone.utc)
+            # Tulkitaan paikalliseksi ajaksi (Europe/Helsinki), ei UTC:ksi
+                return dt.replace(tzinfo=LOCAL_TZ)
+            return dt.astimezone(LOCAL_TZ)
         else:
-            # dt on pelkkä date-olio -> tulkitaan klo 00:00 paikallista päivää UTC:ssa
-            return datetime(dt.year, dt.month, dt.day, 0, 0, 0, tzinfo=timezone.utc)
+        # Jos dt on pelkkä date-olio -> tulkitaan klo 00:00 Helsingin aikaa
+            return datetime(dt.year, dt.month, dt.day, 0, 0, tzinfo=LOCAL_TZ)
+
 
     for e in events:
         # normalisoi alku ja loppu datet -> datetimes
