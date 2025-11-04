@@ -14,6 +14,8 @@ from .collectors.keuda_manual import fetch_keuda_manual
 from .collectors.kerava_manual import fetch_kerava_manual
 from .collectors.helsinki_manual import fetch_helsinki_manual
 from .collectors.careeria_manual import fetch_careeria_manual
+from .collectors.perho_manual import fetch_perho_manual
+
 
 
 LOCAL_TZ = ZoneInfo("Europe/Helsinki")
@@ -107,6 +109,13 @@ def run(sources_path: str, out_dir: str):
         events.extend(fetch_careeria_manual())
     except Exception as e:
         print(f"[WARN] Careeria manual fetch failed: {e}")
+        
+    # PERHO LIIKETALOUSOPISTO (manuaalidata)
+    try:
+        events.extend(fetch_perho_manual())
+    except Exception as e:
+        print(f"[WARN] Perho manual fetch failed: {e}")
+
 
     # Suodata + normalisoi ajat
     now = datetime.now(LOCAL_TZ)
