@@ -1,0 +1,16 @@
+events:
+  - title: "Avoimet ovet – Perho Liiketalousopisto (Malmin kampus)"
+    date: "2026-01-22"        # MUUTA oikeaksi
+    start: "10:00"            # MUUTA oikeaksi
+    end: "14:00"              # tarvittaessa, voi poistaa
+    location: "Perho Liiketalousopisto, (Malmin kampus), Helsinki"
+    organizer: "Perho Liiketalousopisto"
+    url: "https://perho.fi/hae-meille/yhteishaku/"
+
+  - title: "Avoimet ovet – Perho Liiketalousopisto (Töölön kampus)"
+    date: "2025-12-09"
+    start: "10:00"
+    end: "14:00"
+    location: "Perho Liiketalousopisto, (Töölön kampus)"
+    organizer: "Perho Liiketalousopisto"
+    url: "https://perho.fi/hae-meille/yhteishaku/"
